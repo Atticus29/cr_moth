@@ -10,14 +10,20 @@ dl_moths_all = "combined_output_moth_removed.csv"
 good_matching_gbif_taxa = "good_matching_gbif_taxa_not_just_species.csv"
 dl_moths_matching_gbif = "dl_moths_matching_gbif_not_just_spiecies.csv"
 
+filterBySpecies = False
+
 # Step 1: Filter 1.csv for matchType == "EXACT" and rank == "SPECIES"
 try:
     # Read 1.csv
     df1 = pd.read_csv(gbif_taxa)
 
     # Filter rows where matchType is "EXACT" and rank is "SPECIES"
-    # filtered_df1 = df1[(df1["matchType"] == "EXACT") & (df1["rank"] == "SPECIES")]
-    filtered_df1 = df1[(df1["matchType"] == "EXACT") ]
+
+    if(filterBySpecies):
+        filtered_df1 = df1[(df1["matchType"] == "EXACT") & (df1["rank"] == "SPECIES")]
+    else:
+        # 
+        filtered_df1 = df1[(df1["matchType"] == "EXACT") ]
 
     # Get unique verbatimScientificName values
     unique_scientific_names = filtered_df1["verbatimScientificName"].drop_duplicates()
