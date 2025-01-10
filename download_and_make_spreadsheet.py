@@ -14,25 +14,23 @@ def download_image(url, folder, filename):
         return filepath
     return None
 
+# Define the folder for saving images
 output_folder = "/Users/markfisher/Desktop/cr_moth_classification/cr_images"
 os.makedirs(output_folder, exist_ok=True)
 
 # Prepare CSV file
-csv_filename = "image_data.csv"
-csv_headers = ["Filename", "Identifier", "ScientificName", "CommonName", "Comments"]
+csv_filename = "fisher_image_data.csv"
+csv_headers = ["Filename", "Identifier", "scientificName", "CommonName", "Comments"]
+
+# Open the CSV file once and manage it across all iterations
 with open(csv_filename, "w", newline="", encoding="utf-8") as csvfile:
     writer = csv.writer(csvfile)
-    writer.writerow(csv_headers)
+    writer.writerow(csv_headers)  # Write headers only once
 
-# Define the target URL and folder for saving images
-# for pageNum in range(0,359):
-for pageNum in range(0,2):
-    # print(pageNum)
-    url = f"https://www.discoverlife.org/mp/20p?res=640&see=I_PBA/{pageNum:04}&flags=col9:"
-    print(url)
-
-
-    # Fetch the webpage content
+# Loop through the URLs
+# for pageNum in range(0, 359):
+for pageNum in range(118, 164):
+    url = f"https://www.discoverlife.org/mp/20p?res=640&see=I_MFS/{pageNum:04}&flags=col9:"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -59,8 +57,9 @@ for pageNum in range(0,2):
                 while len(text_values) < 4:
                     text_values.append(None)
 
-                # Write to CSV
+                # Write the data row to CSV
                 writer.writerow([filename] + text_values[:4])
+
     print(f"Processed page {pageNum:04}: Images downloaded and data appended to '{csv_filename}'.")
 
-print(f"Images downloaded to '{output_folder}' and metadata saved to '{csv_filename}'.")
+print(f"All pages processed. Images saved to '{output_folder}' and metadata saved to '{csv_filename}'.")
