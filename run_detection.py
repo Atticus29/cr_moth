@@ -7,17 +7,17 @@ import os
 target_filenames = pd.read_csv('targetFilenamesForDetection.csv')['Filename']
 
 # Base path for images
-base_path = "/Users/markfisher/Desktop/cr_moth_classification/cr_images_pb"
+base_path = "/Users/markfisher/Desktop/cr_moth_classification/cr_images/"
 
 # COCO structure
 coco_output = {
     "info": {
-        "year": "2025",
+        "year": "2024",
         "version": "1",
         "description": "Exported from inference results",
-        "contributor": "Mark FIsher",
+        "contributor": "",
         "url": "",
-        "date_created": "2025-01-20T21:23:30+00:00"
+        "date_created": "2024-12-13T21:23:30+00:00"
     },
     "licenses": [
         {
@@ -44,7 +44,7 @@ annotation_id = 0
 for idx, filename in enumerate(target_filenames):
     image_path = os.path.join(base_path, filename)
 
-    # Run the inference command 
+    # Run the inference command
     cmd = [
         "inference", "infer",
         "--input", image_path,
@@ -54,10 +54,20 @@ for idx, filename in enumerate(target_filenames):
 
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        # Extract JSON part from the command output
         print("STDOUT:", result.stdout)
         print("STDERR:", result.stderr)
+        stdout_lines = result.stdout.splitlines()
+        json_part = next((line for line in stdout_lines if line.startswith("{")), None)
+        json_part = json_part.replace("'", '"')
+        print(f"Extracted JSON part: {json_part}")
 
-        output = json.loads(result.stdout)
+
+        if json_part is None:
+            print(f"No JSON output for file {filename}")
+            continue
+
+        output = json.loads(json_part)
 
         # Add image entry
         image_entry = {
@@ -93,7 +103,7 @@ for idx, filename in enumerate(target_filenames):
         print(f"Error processing file {filename}: {e.stderr}")
 
 # Save to coco.json
-with open('coco_output.json', 'w') as f:
+with open('coco_output_fisher.json', 'w') as f:
     json.dump(coco_output, f, indent=4)
 
-print("COCO JSON file has been created as 'coco_output.json'.")
+print("COCO JSON file has been created as 'coco_output_fisher.json'.")

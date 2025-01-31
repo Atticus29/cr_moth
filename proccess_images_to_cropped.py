@@ -3,8 +3,8 @@ import os
 from PIL import Image
 
 # Paths to the JSON file and images directory
-json_path = '/Users/markfisher/Downloads/CR_Moth_Detector.v1i.coco/train/_annotations.coco.json'  # Path to your COCO JSON file
-image_dir = '/Users/markfisher/Downloads/CR_Moth_Detector.v1i.coco/train/'    # Directory containing the image files
+json_path = '/Users/markfisher/Desktop/cr_moth_classification/coco_output_fisher.json'  # Path to your COCO JSON file
+image_dir = '/Users/markfisher/Desktop/cr_moth_classification/cr_images/'    # Directory containing the image files
 
 # Load the JSON file
 with open(json_path, 'r') as f:
