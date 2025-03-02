@@ -14,12 +14,17 @@ def download_image(url, folder, filename):
         return filepath
     return None
 
-# Define the folder for saving images
+# Configurables
 output_folder = "/Users/markfisher/Desktop/cr_moth_classification/cr_images"
+csv_filename = "fisher_image_data.csv"
+photoAuthorCode = "I_MFS"
+baseDownloadUrl = f"https://www.discoverlife.org/mp/20p?res=640&see={photoAuthorCode}/"
+
+
+# Define the folder for saving images
 os.makedirs(output_folder, exist_ok=True)
 
 # Prepare CSV file
-csv_filename = "fisher_image_data.csv"
 csv_headers = ["Filename", "Identifier", "scientificName", "CommonName", "Comments"]
 
 # Open the CSV file once and manage it across all iterations
@@ -30,7 +35,7 @@ with open(csv_filename, "w", newline="", encoding="utf-8") as csvfile:
 # Loop through the URLs
 # for pageNum in range(0, 359):
 for pageNum in range(118, 164):
-    url = f"https://www.discoverlife.org/mp/20p?res=640&see=I_MFS/{pageNum:04}&flags=col9:"
+    url = f"{baseDownloadUrl}{pageNum:04}&flags=col9:"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 

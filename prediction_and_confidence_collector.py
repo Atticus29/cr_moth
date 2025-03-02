@@ -8,7 +8,7 @@ input_csv = "filtered_multiclass_classification.csv"  # Change to your actual fi
 output_csv = baseDir + "classification_results.csv"
 
 # API URL
-api_url = "https://classify.roboflow.com/cr-moths/5?api_key=TODO"
+api_url = "https://classify.roboflow.com/cr-moths/5?api_key=TODOttlsPPRxNFZfeFqEs5hA"
 
 # Read the CSV and process each image
 with open(baseDir+input_csv, newline='') as csvfile:
