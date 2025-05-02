@@ -76,7 +76,7 @@ for idx, filename in enumerate(target_filenames):
             "file_name": filename,
             "height": output["image"]["height"],
             "width": output["image"]["width"],
-            "date_captured": "2024-12-13T21:23:30+00:00"
+            "date_captured": "2025-12-13T21:23:30+00:00"
         }
         coco_output["images"].append(image_entry)
 
