@@ -25,3 +25,6 @@ ami-ml/.ipynb_checkpoints/
 3_classification/ami-ml/dataset_prep_results/val-000000
 3_classification/ami-ml/dataset_prep_results/older
 1_dataset_prep/.DS_Store
+tmp_1_dataset_prep/
+tmp_3_classification/
+tmp_4_model_analysis/
